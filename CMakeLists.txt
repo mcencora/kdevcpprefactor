@@ -4,6 +4,7 @@ find_package(KDE4 REQUIRED)
 find_package(KDevPlatform REQUIRED)
 
 include(KDE4Defaults)
+add_subdirectory(Test)
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DKDE_DEFAULT_DEBUG_AREA=9043)
 add_definitions("-fexceptions")
 
