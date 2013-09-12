@@ -1,0 +1,4 @@
+[Project]
+Name=kdev-cpp-clang-refactor
+Manager=KDevCMakeManager
+VersionControl=kdevgit

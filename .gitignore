@@ -1,0 +1,12 @@
+build*/
+.kdev4
+*~
+*.patch
+*.diff
+*.orig
+*.rej
+*.swp
+massif.out.*
+callgrind.out.*
+.*kate-swp
+
