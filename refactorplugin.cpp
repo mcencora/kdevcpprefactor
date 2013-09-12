@@ -28,9 +28,11 @@
 #include <interfaces/contextmenuextension.h>
 #include <language/interfaces/editorcontext.h>
 #include <QAction>
+#include <QString>
 
 #include <KPluginFactory>
 #include <KAboutData>
+#include <KTextEditor/Document>
 
 #include "CppManip.hpp"
 
@@ -51,7 +53,7 @@ RefactorPlugin::RefactorPlugin(QObject* parent, const QVariantList&)
 KDevelop::ContextMenuExtension RefactorPlugin::contextMenuExtension(KDevelop::Context* context)
 {
     KDevelop::ContextMenuExtension extension;
-    if (dynamic_cast<KDevelop::EditorContext*>(context)) {
+    if ((this->context = dynamic_cast<KDevelop::EditorContext*>(context))) {
         QAction* action = new QAction(i18n("Extract function"), this);
         // action->setData(QVariant::fromValue(IndexedDeclaration(declaration)));
         connect(action, SIGNAL(triggered(bool)), this, SLOT(executeExtractFunction()));
@@ -59,15 +61,50 @@ KDevelop::ContextMenuExtension RefactorPlugin::contextMenuExtension(KDevelop::Co
     }
     return extension;
 }
+namespace
+{
+SourceSelection rangeToSourceSelection(const KTextEditor::Document& doc,
+                                       const KTextEditor::Range& range)
+{
+    SourceSelection ss;
+
+    for (int i = 0; i < range.start().line(); ++i)
+    {
+        ss.from += doc.line(i).length() + 1;
+    }
+    ss.to = ss.from;
+
+    ss.from += range.start().column();
+
+    for (int i = range.start().line(); i < range.end().line(); ++i)
+    {
+        ss.to += doc.line(i).length() + 1;
+    }
+    ss.to += range.end().column();
+    return ss;
+}
+struct DummyListener : ExtractMethodListener
+{
+    virtual void failed(const std::string& ) {}
+};
+}
+
 
 void RefactorPlugin::executeExtractFunction()
 {
     try
     {
-        SourceSelection selection;
-        selection.from = 35;
-        selection.to = 80;
-        extractMethodInFile("Dummy", selection, "/home/maciej/refactorsample.cpp");
+        KTextEditor::Range range = context->view()->selectionRange();
+        if (range.isEmpty())
+        {
+            range = KTextEditor::Range(context->view()->cursorPosition(),
+                                       context->view()->cursorPosition());
+        }
+        SourceSelection selection = rangeToSourceSelection(*context->view()->document(),
+                                                           range);
+        QString fileName = context->url().path();
+        DummyListener d;
+        extractMethodInFile("Dummy", selection, fileName.toLocal8Bit().constData(), d);
     }
     catch (const std::exception&)
     { }

@@ -30,6 +30,11 @@
 #include <interfaces/iplugin.h>
 #include <QVariant>
 
+namespace KDevelop
+{
+class EditorContext;
+}
+
 class RefactorPlugin : public KDevelop::IPlugin
 {
     Q_OBJECT
@@ -41,6 +46,9 @@ public:
 
 public slots:
     void executeExtractFunction();
+
+private:
+    KDevelop::EditorContext* context;
 };
 
 #endif // CLANGREFACTORLANGUAGESUPPORT_H
