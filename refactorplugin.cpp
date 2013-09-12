@@ -32,6 +32,8 @@
 #include <KPluginFactory>
 #include <KAboutData>
 
+#include "CppManip.hpp"
+
 K_PLUGIN_FACTORY(RefactorPluginFactory, registerPlugin<RefactorPlugin>();)
 K_EXPORT_PLUGIN(RefactorPluginFactory(
     KAboutData("kdevcppclangrefactor",
@@ -59,7 +61,17 @@ KDevelop::ContextMenuExtension RefactorPlugin::contextMenuExtension(KDevelop::Co
 }
 
 void RefactorPlugin::executeExtractFunction()
-{}
+{
+    try
+    {
+        SourceSelection selection;
+        selection.from = 35;
+        selection.to = 80;
+        extractMethodInFile("Dummy", selection, "/home/maciej/refactorsample.cpp");
+    }
+    catch (const std::exception&)
+    { }
+}
 
 #include "refactorplugin.moc"
 

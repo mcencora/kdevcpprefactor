@@ -5,6 +5,7 @@ find_package(KDevPlatform REQUIRED)
 
 include(KDE4Defaults)
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DKDE_DEFAULT_DEBUG_AREA=9043)
+add_definitions("-fexceptions")
 
 include_directories(
     ${KDEVPLATFORM_INCLUDE_DIR}
@@ -22,6 +23,7 @@ kde4_add_plugin(kdevcppclangrefactor ${kdevcppclangrefactor_PART_SRCS})
 target_link_libraries(kdevcppclangrefactor
     ${KDEVPLATFORM_INTERFACES_LIBRARIES}
     ${KDEVPLATFORM_LANGUAGE_LIBRARIES}
+    cppmanip
 )
 
 install(TARGETS kdevcppclangrefactor DESTINATION ${PLUGIN_INSTALL_DIR})
