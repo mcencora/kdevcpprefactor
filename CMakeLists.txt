@@ -28,5 +28,8 @@ target_link_libraries(kdevcppclangrefactor
     cppmanip
 )
 
+configure_file(kdevcppclangrefactor.desktop.cmake
+               ${CMAKE_CURRENT_BINARY_DIR}/kdevcppclangrefactor.desktop)
+
 install(TARGETS kdevcppclangrefactor DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES kdevcppclangrefactor.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kdevcppclangrefactor.desktop DESTINATION ${SERVICES_INSTALL_DIR})
