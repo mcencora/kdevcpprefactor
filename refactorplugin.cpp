@@ -35,6 +35,7 @@
 #include <KTextEditor/Document>
 
 #include "CppManip.hpp"
+#include "ui/extractfunctiondialog.h"
 
 K_PLUGIN_FACTORY(RefactorPluginFactory, registerPlugin<RefactorPlugin>();)
 K_EXPORT_PLUGIN(RefactorPluginFactory(
@@ -56,7 +57,7 @@ KDevelop::ContextMenuExtension RefactorPlugin::contextMenuExtension(KDevelop::Co
     if ((this->context = dynamic_cast<KDevelop::EditorContext*>(context))) {
         QAction* action = new QAction(i18n("Extract function"), this);
         // action->setData(QVariant::fromValue(IndexedDeclaration(declaration)));
-        connect(action, SIGNAL(triggered(bool)), this, SLOT(executeExtractFunction()));
+        connect(action, SIGNAL(triggered(bool)), this, SLOT(showExtractFunction()));
         extension.addAction(KDevelop::ContextMenuExtension::RefactorGroup, action);
     }
     return extension;
@@ -89,6 +90,13 @@ struct DummyListener : ExtractMethodListener
 };
 }
 
+
+void RefactorPlugin::showExtractFunction()
+{
+    ExtractFunctionDialog *d = new ExtractFunctionDialog();
+    connect(d, SIGNAL(okClicked()), this, SLOT(executeExtractFunction()));
+    d->show();
+}
 
 void RefactorPlugin::executeExtractFunction()
 {

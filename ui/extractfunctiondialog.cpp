@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Maciej Cencora <m.cencora@gmail.co>
+ * Copyright (c) 2013 Maciej <m.cencora@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -24,32 +24,17 @@
  *
  */
 
-#ifndef CLANGREFACTORLANGUAGESUPPORT_H
-#define CLANGREFACTORLANGUAGESUPPORT_H
+#include "extractfunctiondialog.h"
+#include "ui_extractfunctiondialog.h"
 
-#include <interfaces/iplugin.h>
-#include <QVariant>
+#include <KLocalizedString>
 
-namespace KDevelop
+ExtractFunctionDialog::ExtractFunctionDialog()
 {
-class EditorContext;
+    setWindowTitle(i18n("Extract function"));
+    QWidget *w = new QWidget(this);
+    ui = new Ui::ExtractFunction;
+    ui->setupUi(w);
+
+    setMainWidget(w);
 }
-
-class RefactorPlugin : public KDevelop::IPlugin
-{
-    Q_OBJECT
-
-public:
-    explicit RefactorPlugin(QObject *parent, const QVariantList&);
-
-    virtual KDevelop::ContextMenuExtension contextMenuExtension(KDevelop::Context* context);
-
-public slots:
-    void showExtractFunction();
-    void executeExtractFunction();
-
-private:
-    KDevelop::EditorContext* context;
-};
-
-#endif // CLANGREFACTORLANGUAGESUPPORT_H

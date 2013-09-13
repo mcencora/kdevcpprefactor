@@ -14,11 +14,13 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+qt4_wrap_ui(GUI_SOURCES ui/extractfunctiondialog.ui)
 set(kdevcppclangrefactor_PART_SRCS
+    ui/extractfunctiondialog.cpp
     refactorplugin.cpp
 )
 
-kde4_add_plugin(kdevcppclangrefactor ${kdevcppclangrefactor_PART_SRCS})
+kde4_add_plugin(kdevcppclangrefactor ${kdevcppclangrefactor_PART_SRCS} ${GUI_SOURCES})
 
 target_link_libraries(kdevcppclangrefactor
     ${KDEVPLATFORM_INTERFACES_LIBRARIES}
