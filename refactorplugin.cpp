@@ -39,11 +39,11 @@
 
 K_PLUGIN_FACTORY(RefactorPluginFactory, registerPlugin<RefactorPlugin>();)
 K_EXPORT_PLUGIN(RefactorPluginFactory(
-    KAboutData("kdevcppclangrefactor",
-               "kdevcppclangrefactor",
-               ki18n("Clang based C/C++ code refactoring support"),
+    KAboutData("kdevcpprefactor",
+               "kdevcpprefactor",
+               ki18n("C/C++ code refactoring support"),
                "0.0.1",
-               ki18n("Clang based C/C++ code refactoring support"),
+               ki18n("C/C++ code refactoring support"),
                KAboutData::License_GPL)
     .addAuthor(ki18n("Maciej Cencora"), ki18n("Author"), "m.cencora@gmail.com")))
 

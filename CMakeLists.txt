@@ -1,4 +1,4 @@
-project(kdev-cpp-clang-refactor)
+project(kdevcpprefactor)
 
 find_package(KDE4 REQUIRED)
 find_package(KDevPlatform REQUIRED)
@@ -15,21 +15,21 @@ include_directories(
 )
 
 qt4_wrap_ui(GUI_SOURCES ui/extractfunctiondialog.ui)
-set(kdevcppclangrefactor_PART_SRCS
+set(kdevcpprefactor_PART_SRCS
     ui/extractfunctiondialog.cpp
     refactorplugin.cpp
 )
 
-kde4_add_plugin(kdevcppclangrefactor ${kdevcppclangrefactor_PART_SRCS} ${GUI_SOURCES})
+kde4_add_plugin(kdevcpprefactor ${kdevcpprefactor_PART_SRCS} ${GUI_SOURCES})
 
-target_link_libraries(kdevcppclangrefactor
+target_link_libraries(kdevcpprefactor
     ${KDEVPLATFORM_INTERFACES_LIBRARIES}
     ${KDEVPLATFORM_LANGUAGE_LIBRARIES}
     cppmanip
 )
 
-configure_file(kdevcppclangrefactor.desktop.cmake
-               ${CMAKE_CURRENT_BINARY_DIR}/kdevcppclangrefactor.desktop)
+configure_file(kdevcpprefactor.desktop.cmake
+               ${CMAKE_CURRENT_BINARY_DIR}/kdevcpprefactor.desktop)
 
-install(TARGETS kdevcppclangrefactor DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kdevcppclangrefactor.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(TARGETS kdevcpprefactor DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kdevcpprefactor.desktop DESTINATION ${SERVICES_INSTALL_DIR})
