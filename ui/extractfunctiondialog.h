@@ -45,6 +45,7 @@ signals:
 
 private slots:
     virtual void accept();
+    void onFunctionNameChange();
 
 private:
     Ui::ExtractFunction* ui;

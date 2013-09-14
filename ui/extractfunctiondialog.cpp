@@ -43,6 +43,8 @@ ExtractFunctionDialog::ExtractFunctionDialog()
 
     QRegExpValidator *v = new QRegExpValidator(QRegExp("^[a-zA-Z_][a-zA-Z0-9_]+$"));
     ui->functionName->setValidator(v);
+
+    connect(ui->functionName, SIGNAL(textChanged(QString)), this, SLOT(onFunctionNameChange()));
 }
 
 void ExtractFunctionDialog::accept()
@@ -53,11 +55,16 @@ void ExtractFunctionDialog::accept()
         ui->userFeedback->setCloseButtonVisible(false);
         ui->userFeedback->setText(i18n("Invalid function name"));
         ui->userFeedback->animatedShow();
+        ui->functionName->setFocus();
         return;
     }
-    ui->userFeedback->animatedHide();
 
     emit accepted(ui->functionName->text());
     QDialog::accept();
 }
 
+void ExtractFunctionDialog::onFunctionNameChange()
+{
+    if (ui->functionName->hasAcceptableInput())
+        ui->userFeedback->animatedHide();
+}
