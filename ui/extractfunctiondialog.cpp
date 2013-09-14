@@ -28,6 +28,7 @@
 #include "ui_extractfunctiondialog.h"
 
 #include <KLocalizedString>
+#include <QToolTip>
 
 ExtractFunctionDialog::ExtractFunctionDialog()
 {
@@ -35,6 +36,28 @@ ExtractFunctionDialog::ExtractFunctionDialog()
     QWidget *w = new QWidget(this);
     ui = new Ui::ExtractFunction;
     ui->setupUi(w);
+    ui->functionName->setFocus();
+    ui->userFeedback->setVisible(false);
 
     setMainWidget(w);
+
+    QRegExpValidator *v = new QRegExpValidator(QRegExp("^[a-zA-Z_][a-zA-Z0-9_]+$"));
+    ui->functionName->setValidator(v);
 }
+
+void ExtractFunctionDialog::accept()
+{
+    if (!ui->functionName->hasAcceptableInput())
+    {
+        ui->userFeedback->setMessageType(KMessageWidget::Error);
+        ui->userFeedback->setCloseButtonVisible(false);
+        ui->userFeedback->setText(i18n("Invalid function name"));
+        ui->userFeedback->animatedShow();
+        return;
+    }
+    ui->userFeedback->animatedHide();
+
+    emit accepted(ui->functionName->text());
+    QDialog::accept();
+}
+

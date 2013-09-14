@@ -29,14 +29,17 @@
       <string>General</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string extracomment="sampleName">Function name</string>
+         <string extracomment="sampleName">Function &amp;name</string>
+        </property>
+        <property name="buddy">
+         <cstring>functionName</cstring>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+      <item row="1" column="1">
        <widget class="QLineEdit" name="functionName">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
@@ -55,7 +58,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="label_2">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -68,7 +71,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="2" column="1">
        <widget class="QRadioButton" name="out_return">
         <property name="text">
          <string>Return statement</string>
@@ -78,12 +81,15 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="3" column="1">
        <widget class="QRadioButton" name="out_ref_param">
         <property name="text">
          <string>Parameters passed by reference</string>
         </property>
        </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="KMessageWidget" name="userFeedback"/>
       </item>
      </layout>
     </widget>
@@ -173,6 +179,12 @@
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
    <header>ktextedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KMessageWidget</class>
+   <extends>QFrame</extends>
+   <header location="global">KMessageWidget</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

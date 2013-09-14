@@ -94,11 +94,12 @@ struct DummyListener : ExtractMethodListener
 void RefactorPlugin::showExtractFunction()
 {
     ExtractFunctionDialog *d = new ExtractFunctionDialog();
-    connect(d, SIGNAL(okClicked()), this, SLOT(executeExtractFunction()));
-    d->show();
+    connect(d, SIGNAL(accepted(QString)), this, SLOT(executeExtractFunction(QString)));
+    d->exec();
+    delete d;
 }
 
-void RefactorPlugin::executeExtractFunction()
+void RefactorPlugin::executeExtractFunction(const QString& functionName)
 {
     try
     {
@@ -112,7 +113,10 @@ void RefactorPlugin::executeExtractFunction()
                                                            range);
         QString fileName = context->url().path();
         DummyListener d;
-        extractMethodInFile("Dummy", selection, fileName.toLocal8Bit().constData(), d);
+        extractMethodInFile(functionName.toAscii().constData(),
+                            selection,
+                            fileName.toLocal8Bit().constData(),
+                            d);
     }
     catch (const std::exception&)
     { }

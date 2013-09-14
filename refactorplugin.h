@@ -46,7 +46,7 @@ public:
 
 public slots:
     void showExtractFunction();
-    void executeExtractFunction();
+    void executeExtractFunction(const QString& functionName);
 
 private:
     KDevelop::EditorContext* context;

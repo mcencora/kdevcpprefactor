@@ -40,6 +40,12 @@ class ExtractFunctionDialog : public KDialog
 public:
     ExtractFunctionDialog();
 
+signals:
+    void accepted(const QString& functionName);
+
+private slots:
+    virtual void accept();
+
 private:
     Ui::ExtractFunction* ui;
 };
