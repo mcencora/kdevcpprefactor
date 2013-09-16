@@ -38,6 +38,9 @@ ExtractFunctionDialog::ExtractFunctionDialog()
     ui->setupUi(w);
     ui->functionName->setFocus();
     ui->userFeedback->setVisible(false);
+    ui->groupBox->setVisible(false);
+    ui->groupBox_3->setVisible(false);
+
 
     setMainWidget(w);
 
