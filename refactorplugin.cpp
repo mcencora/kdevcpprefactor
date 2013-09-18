@@ -33,6 +33,7 @@
 #include <KPluginFactory>
 #include <KAboutData>
 #include <KTextEditor/Document>
+#include <KMessageBox>
 
 #include "CppManip.hpp"
 #include "SourceReplacement.hpp"
