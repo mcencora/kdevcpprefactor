@@ -35,6 +35,9 @@
 #include <KTextEditor/Document>
 
 #include "CppManip.hpp"
+#include "SourceReplacement.hpp"
+
+#include "sourcemodificationsapplier.hpp"
 #include "ui/extractfunctiondialog.h"
 
 K_PLUGIN_FACTORY(RefactorPluginFactory, registerPlugin<RefactorPlugin>();)
@@ -108,9 +111,11 @@ void RefactorPlugin::executeExtractFunction(const QString& functionName)
         SourceSelection selection = rangeToSourceSelection(*context->view()->document(),
                                                            range);
         QString fileName = context->url().path();
-        extractMethodInFile(functionName.toAscii().constData(),
-                            selection,
-                            fileName.toLocal8Bit().constData());
+        SourceReplacements reps = extractFunctionInFile(functionName.toAscii().constData(),
+                                                        selection,
+                                                        fileName.toLocal8Bit().constData());
+        SourceModificationsApplier app;
+        app.apply(context->view()->document(), reps);
     }
     catch (const std::exception&)
     { }
