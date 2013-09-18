@@ -33,6 +33,10 @@ target_link_libraries(kdevcpprefactor
     cppmanip
 )
 
+if (NOT DEFINED KDEV_PLUGIN_VERSION)
+math(EXPR KDEV_PLUGIN_VERSION "${KDevPlatform_VERSION_MAJOR} * 10 + ${KDevPlatform_VERSION_MINOR}")
+endif ()
+
 configure_file(kdevcpprefactor.desktop.cmake
                ${CMAKE_CURRENT_BINARY_DIR}/kdevcpprefactor.desktop)
 
