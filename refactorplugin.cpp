@@ -84,10 +84,6 @@ SourceSelection rangeToSourceSelection(const KTextEditor::Document& doc,
     ss.to += range.end().column();
     return ss;
 }
-struct DummyListener : ExtractMethodListener
-{
-    virtual void failed(const std::string& ) {}
-};
 }
 
 
@@ -112,11 +108,9 @@ void RefactorPlugin::executeExtractFunction(const QString& functionName)
         SourceSelection selection = rangeToSourceSelection(*context->view()->document(),
                                                            range);
         QString fileName = context->url().path();
-        DummyListener d;
         extractMethodInFile(functionName.toAscii().constData(),
                             selection,
-                            fileName.toLocal8Bit().constData(),
-                            d);
+                            fileName.toLocal8Bit().constData());
     }
     catch (const std::exception&)
     { }
