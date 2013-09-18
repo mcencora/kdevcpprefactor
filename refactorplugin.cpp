@@ -67,24 +67,14 @@ KDevelop::ContextMenuExtension RefactorPlugin::contextMenuExtension(KDevelop::Co
 }
 namespace
 {
-SourceSelection rangeToSourceSelection(const KTextEditor::Document& doc,
-                                       const KTextEditor::Range& range)
+SourceSelection rangeToSourceSelection(const KTextEditor::Range& range)
 {
     SourceSelection ss;
+    ss.from.col = range.start().column();
+    ss.from.row = range.start().line();
+    ss.to.col = range.end().column();
+    ss.to.row = range.start().line();
 
-    for (int i = 0; i < range.start().line(); ++i)
-    {
-        ss.from += doc.line(i).length() + 1;
-    }
-    ss.to = ss.from;
-
-    ss.from += range.start().column();
-
-    for (int i = range.start().line(); i < range.end().line(); ++i)
-    {
-        ss.to += doc.line(i).length() + 1;
-    }
-    ss.to += range.end().column();
     return ss;
 }
 }
@@ -108,8 +98,7 @@ void RefactorPlugin::executeExtractFunction(const QString& functionName)
             range = KTextEditor::Range(context->view()->cursorPosition(),
                                        context->view()->cursorPosition());
         }
-        SourceSelection selection = rangeToSourceSelection(*context->view()->document(),
-                                                           range);
+        SourceSelection selection = rangeToSourceSelection(range);
         QString fileName = context->url().path();
         SourceReplacements reps = extractFunctionInFile(functionName.toAscii().constData(),
                                                         selection,
