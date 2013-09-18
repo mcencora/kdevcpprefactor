@@ -107,8 +107,10 @@ void RefactorPlugin::executeExtractFunction(const QString& functionName)
         app.apply(context->view()->document(), reps);
         context->view()->setSelection(KTextEditor::Range());
     }
-    catch (const std::exception&)
-    { }
+    catch (const std::exception& e)
+    {
+        KMessageBox::error(nullptr, e.what(), i18n("Function extraction failed"));
+    }
 }
 
 #include "refactorplugin.moc"
