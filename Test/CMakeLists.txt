@@ -1,0 +1,6 @@
+set( TEST_LIBRARIES ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} )
+set( TESTS_SRC refactorTester.cpp )
+qt4_automoc( ${TESTS_SRC} )
+add_executable( refactorTester ${TESTS_SRC} )
+target_link_libraries( refactorTester ${TEST_LIBRARIES} )
+add_test(refactorTester refactorTester)
