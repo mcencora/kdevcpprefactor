@@ -8,7 +8,7 @@ find_package(KDevPlatform REQUIRED)
 include(UseQt4)
 include(KDE4Defaults)
 add_definitions(${KDE4_DEFINITIONS} -DKDE_DEFAULT_DEBUG_AREA=9043)
-add_definitions("-fexceptions")
+add_definitions("-fexceptions -std=c++11")
 
 include_directories(
     ${KDEVPLATFORM_INCLUDE_DIR}
