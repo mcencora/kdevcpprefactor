@@ -46,6 +46,8 @@ void applySingleChange(KTextEditor::Document* doc, const SourceReplacement& r)
 void SourceModificationsApplier::apply(KTextEditor::Document* doc, const SourceReplacements& changes)
 {
     doc->startEditing();
-    for (auto& c : changes) [=] (const SourceReplacement& r) { applySingleChange(doc, r); }(c);
+    for (auto& c : changes)
+        applySingleChange(doc, c);
     doc->endEditing();
 }
+
