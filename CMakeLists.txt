@@ -21,6 +21,7 @@ qt4_wrap_ui(GUI_SOURCES ui/extractfunctiondialog.ui)
 set(kdevcpprefactor_PART_SRCS
     ui/extractfunctiondialog.cpp
     refactorplugin.cpp
+    sourcemodificationsapplier.cpp
 )
 
 kde4_add_plugin(kdevcpprefactor ${kdevcpprefactor_PART_SRCS} ${GUI_SOURCES})
