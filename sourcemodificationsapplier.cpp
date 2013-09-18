@@ -36,16 +36,16 @@ Range createRange(const SourceLocation& from, const SourceLocation& to)
     return Range(from.row, from.col, to.row, to.col);
 }
 
-void applySingleChange(KTextEditor::Document* doc, const Replacement& r)
+void applySingleChange(KTextEditor::Document* doc, const SourceReplacement& r)
 {
     auto range = createRange(r.from, r.to);
     doc->replaceText(range, QString::fromAscii(r.text.c_str()));
 }
 }
 
-void SourceModificationsApplier::apply(KTextEditor::Document* doc, const Replacements& changes)
+void SourceModificationsApplier::apply(KTextEditor::Document* doc, const SourceReplacements& changes)
 {
     doc->startEditing();
-    for (auto& c : changes) [=] (const Replacement& r) { applySingleChange(doc, r); }(c);
+    for (auto& c : changes) [=] (const SourceReplacement& r) { applySingleChange(doc, r); }(c);
     doc->endEditing();
 }
