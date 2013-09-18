@@ -116,6 +116,7 @@ void RefactorPlugin::executeExtractFunction(const QString& functionName)
                                                         fileName.toLocal8Bit().constData());
         SourceModificationsApplier app;
         app.apply(context->view()->document(), reps);
+        context->view()->setSelection(KTextEditor::Range());
     }
     catch (const std::exception&)
     { }
