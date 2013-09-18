@@ -36,6 +36,7 @@
 
 #include "CppManip.hpp"
 #include "SourceReplacement.hpp"
+#include "ExtractMethodError.hpp"
 
 #include "sourcemodificationsapplier.hpp"
 #include "ui/extractfunctiondialog.h"
@@ -107,9 +108,13 @@ void RefactorPlugin::executeExtractFunction(const QString& functionName)
         app.apply(context->view()->document(), reps);
         context->view()->setSelection(KTextEditor::Range());
     }
-    catch (const std::exception& e)
+    catch (const ExtractMethodError& e)
     {
         KMessageBox::error(nullptr, e.what(), i18n("Function extraction failed"));
+    }
+    catch (const std::exception& e)
+    {
+        KMessageBox::error(nullptr, i18n("Internal error: ") + e.what(), i18n("Function extraction failed"));
     }
 }
 
