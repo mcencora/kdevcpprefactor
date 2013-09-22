@@ -31,19 +31,19 @@
 namespace
 {
 using KTextEditor::Range;
-Range createRange(const SourceLocation& from, const SourceLocation& to)
+Range createRange(const cppmanip::SourceLocation& from, const cppmanip::SourceLocation& to)
 {
     return Range(from.row, from.col, to.row, to.col);
 }
 
-void applySingleChange(KTextEditor::Document* doc, const SourceReplacement& r)
+void applySingleChange(KTextEditor::Document* doc, const cppmanip::SourceReplacement& r)
 {
     auto range = createRange(r.from, r.to);
     doc->replaceText(range, QString::fromAscii(r.text.c_str()));
 }
 }
 
-void SourceModificationsApplier::apply(KTextEditor::Document* doc, const SourceReplacements& changes)
+void SourceModificationsApplier::apply(KTextEditor::Document* doc, const cppmanip::SourceReplacements& changes)
 {
     doc->startEditing();
     for (auto& c : changes)

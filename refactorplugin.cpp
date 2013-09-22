@@ -35,9 +35,7 @@
 #include <KTextEditor/Document>
 #include <KMessageBox>
 
-#include "CppManip.hpp"
-#include "SourceReplacement.hpp"
-#include "ExtractMethodError.hpp"
+#include <CppManip.hpp>
 
 #include "sourcemodificationsapplier.hpp"
 #include "ui/extractfunctiondialog.h"
@@ -69,9 +67,9 @@ KDevelop::ContextMenuExtension RefactorPlugin::contextMenuExtension(KDevelop::Co
 }
 namespace
 {
-SourceSelection rangeToSourceSelection(const KTextEditor::Range& range)
+cppmanip::SourceSelection rangeToSourceSelection(const KTextEditor::Range& range)
 {
-    SourceSelection ss;
+    cppmanip::SourceSelection ss;
     ss.from.col = range.start().column();
     ss.from.row = range.start().line();
     ss.to.col = range.end().column();
@@ -100,16 +98,16 @@ void RefactorPlugin::executeExtractFunction(const QString& functionName)
             range = KTextEditor::Range(context->view()->cursorPosition(),
                                        context->view()->cursorPosition());
         }
-        SourceSelection selection = rangeToSourceSelection(range);
+        cppmanip::SourceSelection selection = rangeToSourceSelection(range);
         QString fileName = context->url().path();
-        SourceReplacements reps = extractFunctionInFile(functionName.toAscii().constData(),
-                                                        selection,
-                                                        fileName.toLocal8Bit().constData());
+        cppmanip::SourceReplacements reps = cppmanip::extractFunctionInFile(functionName.toAscii().constData(),
+                                                                            selection,
+                                                                            fileName.toLocal8Bit().constData());
         SourceModificationsApplier app;
         app.apply(context->view()->document(), reps);
         context->view()->setSelection(KTextEditor::Range());
     }
-    catch (const ExtractMethodError& e)
+    catch (const cppmanip::ExtractMethodError& e)
     {
         KMessageBox::error(nullptr, e.what(), i18n("Function extraction failed"));
     }
