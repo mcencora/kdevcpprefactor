@@ -27,7 +27,7 @@
 #ifndef SOURCEMODIFICATIONSAPPLIER_H
 #define SOURCEMODIFICATIONSAPPLIER_H
 
-#include "SourceReplacement.hpp"
+#include <cppmanip/SourceReplacement.hpp>
 
 namespace KTextEditor
 {
@@ -37,7 +37,7 @@ class Document;
 class SourceModificationsApplier
 {
 public:
-    void apply(KTextEditor::Document* doc, const SourceReplacements& changes);
+    void apply(KTextEditor::Document* doc, const cppmanip::SourceReplacements& changes);
 };
 
 #endif  // SOURCEMODIFICATIONSAPPLIER_H
