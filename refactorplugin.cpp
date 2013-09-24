@@ -73,7 +73,7 @@ cppmanip::SourceSelection rangeToSourceSelection(const KTextEditor::Range& range
     ss.from.col = range.start().column();
     ss.from.row = range.start().line();
     ss.to.col = range.end().column();
-    ss.to.row = range.start().line();
+    ss.to.row = range.end().line();
 
     return ss;
 }
