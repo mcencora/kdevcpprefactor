@@ -27,7 +27,7 @@
 #ifndef SOURCEMODIFICATIONSAPPLIER_H
 #define SOURCEMODIFICATIONSAPPLIER_H
 
-#include <cppmanip/SourceReplacement.hpp>
+#include <CppManip.hpp>
 
 namespace KTextEditor
 {
